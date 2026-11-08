@@ -201,6 +201,7 @@ const toast=t=>{const e=$('toast');e.textContent=t;e.classList.add('on');clearTi
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const DEF_DELEGAT='Maros Alexandru-Ionuț';
+const DEF_CDATA='2026-10-26';
 
 /* ---------- state & storage ---------- */
 const LSK='certif-marilena-v1';
@@ -265,7 +266,7 @@ function newForm(t){
   const d=todayISO(),L=S.lastBy[t]||S.last||{};
   curId=null;
   $('data').value=d;$('benef').value=L.benef||'';$('same').checked=!L.adresa||L.adresa===L.benef;$('adresa').value=L.adresa||'';
-  $('contract').value=L.contract||'';$('cdata').value=L.cdata||'';
+  $('contract').value=L.contract||'';$('cdata').value=L.cdata||DEF_CDATA;
   $('nr').value=S.nextNr;$('pvnr').value=S.nextPv;$('serie').value=S.serie||'';$('aviz').value=S.nextAviz;
   $('dprep').value=d;$('dliv').value=d;$('dliv').dataset.auto=1;
   $('oprep').value=L.oprep||'';$('oexp').value=L.oexp||'';$('oliv').value=L.oliv||'';$('temp').value='';
@@ -278,7 +279,7 @@ function collect(){readItems();syncAddr();const v={tip};FIELDS.forEach(k=>v[k]=$
   v.id=(prev&&prev.nr===v.nr&&prev.aviz===v.aviz&&prev.pvnr===v.pvnr&&prev.data===v.data)?curId:uid();
   v.items=items.filter(it=>it.den||it.por||it.gr||it.lot).map(it=>({den:it.den||'',por:it.por||'',gr:it.gr||'',lot:it.lot||''}));return v}
 function loadInto(v,asNew){
-  FIELDS.forEach(k=>$(k).value=v[k]||'');if(!v.delegat)$('delegat').value=S.delegat||DEF_DELEGAT;
+  FIELDS.forEach(k=>$(k).value=v[k]||'');if(!v.cdata)$('cdata').value=DEF_CDATA;if(!v.delegat)$('delegat').value=S.delegat||DEF_DELEGAT;
   $('same').checked=v.adresa===v.benef;delete $('dliv').dataset.auto;
   items=(v.items&&v.items.length?v.items:[{}]).map(x=>Object.assign({},x));tip=v.tip||'cald';
   curId=asNew?null:v.id;hideSaved();
