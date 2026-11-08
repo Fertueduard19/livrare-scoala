@@ -3,66 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#1f6b4f">
+<meta name="theme-color" content="#0b0c0c">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Documente livrare școli – La Marilena Axpatis</title>
 <style>
-:root{--bg:#f4f1ea;--card:#fff;--ink:#1d2621;--mut:#6b746f;--line:#e2ddd2;--acc:#1f6b4f;--acc2:#e9f3ee;--warn:#b4442f}
+:root{color-scheme:dark;--bg:#0b0c0c;--card:#141716;--card2:#1a1e1c;--ink:#eef2ef;--mut:#8e9993;--line:#262c29;--acc:#34c58a;--acc-ink:#062417;--acc2:rgba(52,197,138,.12);--gold:#f2b134;--warn:#ff7a5c}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:150px}
-header{padding:18px 16px 6px;max-width:720px;margin:auto;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-header h1{font-size:20px;margin:0}
-header p{margin:2px 0 0;color:var(--mut);font-size:14px}
+html{background:var(--bg)}
+body{margin:0;background:radial-gradient(1200px 500px at 50% -200px,rgba(52,197,138,.14),transparent 70%),var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:160px;min-height:100vh}
+header{padding:20px 16px 4px;max-width:720px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#1f3b2f,#123024);border:1px solid #2c4a3c;display:grid;place-items:center;font-size:20px;box-shadow:0 6px 18px rgba(52,197,138,.18)}
+header h1{font-size:19px;margin:0;letter-spacing:-.01em}
+header p{margin:1px 0 0;color:var(--mut);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase}
+.hbtns{display:flex;gap:6px}
 main{max-width:720px;margin:auto;padding:0 12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
-.card h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:0 0 10px;font-weight:600}
-label{display:block;font-size:13px;color:var(--mut);margin:0 0 3px}
-input,select{width:100%;font:inherit;padding:10px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
-input:focus{outline:2px solid var(--acc);border-color:transparent}
-input:disabled{background:#f6f4ef;color:var(--mut)}
+.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.card h2{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin:0 0 12px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card h2::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc)}
+label{display:block;font-size:12.5px;color:var(--mut);margin:0 0 4px}
+input,select{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#0e100f;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+input::placeholder{color:#55605a}
+input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(52,197,138,.18)}
+input:disabled{background:#121513;color:var(--mut)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .f{margin-bottom:10px}
-.chk{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink);margin:4px 0 0}
-.chk input{width:auto}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:#eeeae1;border-radius:12px;padding:4px;gap:4px}
-.seg button{background:none;padding:10px;font-weight:600;color:var(--mut)}
-.seg button.on{background:#fff;color:var(--acc);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.item{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;background:#fcfbf8}
-.item .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-weight:600;font-size:14px}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink);margin:6px 0 0}
+.chk input{width:auto;accent-color:var(--acc)}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#0e100f;border:1px solid var(--line);border-radius:14px;padding:4px;gap:4px}
+.seg button{background:none;padding:12px;font-weight:600;color:var(--mut)}
+.seg button.on{background:var(--acc);color:var(--acc-ink);box-shadow:0 4px 14px rgba(52,197,138,.3)}
+.item{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;background:#101312}
+.item .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:700;font-size:14px}
 .row3{display:grid;grid-template-columns:1fr 1fr;gap:8px}.row3>.lotc{grid-column:1/-1}
 .lotw{display:flex;gap:6px}.lotw input{min-width:0}
-button{font:inherit;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
-.ghost{background:var(--acc2);color:var(--acc);font-weight:600}
-.tiny{padding:6px 10px;font-size:13px}
+button{font:inherit;border:0;border-radius:11px;padding:10px 14px;cursor:pointer;transition:transform .08s,filter .15s}
+button:active{transform:scale(.97)}
+.ghost{background:var(--acc2);color:var(--acc);font-weight:600;border:1px solid rgba(52,197,138,.25)}
+.ghost:hover{filter:brightness(1.15)}
+.tiny{padding:7px 11px;font-size:13px}
+.icon{padding:8px 11px;background:#161a18;border:1px solid var(--line);color:var(--ink)}
 .x{background:none;color:var(--warn);font-size:13px;padding:4px 6px}
-.total{font-size:14px;margin:4px 0 10px;color:var(--mut)}.total b{color:var(--ink)}
-.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(244,241,234,.97);backdrop-filter:blur(6px);border-top:1px solid var(--line);padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+.total{font-size:14px;margin:4px 0 12px;color:var(--mut)}.total b{color:var(--gold);font-size:16px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(11,12,12,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 12px calc(10px + env(safe-area-inset-bottom));z-index:3}
 .bar .in{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.bar .lbl{grid-column:1/-1;font-size:12px;color:var(--mut);text-align:center}
+.bar .lbl{grid-column:1/-1;font-size:11px;color:var(--mut);text-align:center;letter-spacing:.1em;text-transform:uppercase}
 .bar .all{grid-column:1/-1}
-.pri{background:var(--acc);color:#fff;font-weight:700}
-.sec{background:#fff;border:1px solid var(--line);font-weight:600;padding:9px 6px;font-size:14px}
-.toast{position:fixed;left:50%;bottom:140px;transform:translateX(-50%);background:#1d2621;color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;max-width:90%;text-align:center;z-index:5}
-.toast.on{opacity:1}
-.hist{list-style:none;margin:0;padding:0}
-.hist li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.pri{background:linear-gradient(180deg,#3fd897,#2bb57d);color:var(--acc-ink);font-weight:800;box-shadow:0 6px 20px rgba(52,197,138,.28)}
+.sec{background:#161a18;border:1px solid var(--line);color:var(--ink);font-weight:600;padding:10px 6px;font-size:14px}
+.sec:hover{border-color:var(--acc)}
+.toast{position:fixed;left:50%;bottom:150px;transform:translateX(-50%) translateY(8px);background:#eef2ef;color:#0b0c0c;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;transition:.25s;pointer-events:none;max-width:90%;text-align:center;z-index:20}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.hist{list-style:none;margin:0 0 10px;padding:0}
+.hist li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 0;border-top:1px solid var(--line);font-size:14px}
 .hist li:first-child{border-top:0}
 .hist .m{color:var(--mut);font-size:12px}
-.muted{color:var(--mut);font-size:13px}
+.muted{color:var(--mut);font-size:12.5px}
 .warn{color:var(--warn);font-size:13px;margin:0}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
-.pill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--acc2);color:var(--acc);font-weight:600;margin-left:4px}
-.pill.s{background:#e8eef8;color:#2d5596}
+.pill{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:999px;background:var(--acc2);color:var(--acc);font-weight:700;margin-left:6px;letter-spacing:.03em}
+.pill.s{background:rgba(242,177,52,.13);color:var(--gold)}
+.saved{background:linear-gradient(180deg,rgba(52,197,138,.16),rgba(52,197,138,.07));border:1px solid rgba(52,197,138,.35);border-radius:16px;padding:14px;margin:12px 0;font-size:14px;display:flex;flex-direction:column;gap:10px}.saved .pri{width:100%}
+/* lock */
+body.locked header,body.locked main,body.locked .bar{display:none}
+#lock{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;background:radial-gradient(700px 400px at 50% 20%,rgba(52,197,138,.16),transparent 70%),var(--bg);z-index:30}
+body.locked #lock{display:flex}
+#lock .logo{width:64px;height:64px;font-size:30px;border-radius:18px}
+#lock h2{margin:0;font-size:20px}
+#lock p{margin:-10px 0 0;color:var(--mut);font-size:14px}
+.dots{display:flex;gap:14px;margin:6px 0}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #3a423e;transition:.15s}
+.dots i.f{background:var(--acc);border-color:var(--acc);box-shadow:0 0 12px var(--acc)}
+.dots.err{animation:shake .35s}.dots.err i{border-color:var(--warn)}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.pad{display:grid;grid-template-columns:repeat(3,72px);gap:14px}
+.pad button{height:72px;border-radius:50%;background:#151917;border:1px solid var(--line);color:var(--ink);font-size:26px;font-weight:500}
+.pad button:hover{border-color:var(--acc)}
+.pad .fn{background:none;border:0;font-size:20px;color:var(--mut)}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:25}
+.modal.on{display:flex}
+.modal .box{background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:18px;width:100%;max-width:360px}
+.modal h3{margin:0 0 12px;font-size:17px}
 </style>
 </head>
-<body>
+<body class="locked">
+<div id="lock"><div class="logo">📋</div><h2>Documente livrare</h2><p>Introdu codul PIN</p>
+  <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+  <div class="pad" id="pad"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button class="fn" data-c="clr">✕</button><button>0</button><button class="fn" data-c="back">⌫</button></div>
+</div>
+<div class="modal" id="pinModal"><div class="box"><h3>Schimbă codul PIN</h3>
+  <div class="f"><label>PIN actual</label><input id="pOld" type="password" inputmode="numeric" maxlength="8"></div>
+  <div class="f"><label>PIN nou (4 cifre)</label><input id="pNew" type="password" inputmode="numeric" maxlength="4"></div>
+  <div class="actions"><button type="button" class="pri" id="pSave">Salvează</button><button type="button" class="sec" id="pCancel">Renunță</button></div></div></div>
 <header>
-  <div><h1>Documente livrare școli</h1><p>LA MARILENA AXPATIS SRL</p></div>
-  <button type="button" class="ghost tiny" id="bNew">+ Livrare nouă</button>
+  <div class="brand"><div class="logo">📋</div><div><h1>Documente livrare</h1><p>La Marilena Axpatis SRL</p></div></div>
+  <div class="hbtns"><button type="button" class="ghost tiny" id="bNew">+ Nouă</button><button type="button" class="icon tiny" id="bLock" title="Blochează">🔒</button></div>
 </header>
 <main>
+<div class="saved" id="saved" style="display:none"><div id="savedTxt"></div><button type="button" class="pri" id="bNext">Începe livrarea următoare →</button></div>
 <form id="f" autocomplete="off" onsubmit="return false">
   <section class="card">
     <h2>Ce livrezi</h2>
@@ -121,6 +162,7 @@ button{font:inherit;border:0;border-radius:10px;padding:10px 14px;cursor:pointer
     <ul class="hist" id="hist"></ul>
     <p class="muted" id="store"></p>
     <div class="actions"><button type="button" class="ghost tiny" id="bExp">Salvează copie de siguranță</button><button type="button" class="ghost tiny" id="bImp">Încarcă copie</button><input type="file" id="fImp" accept=".json,application/json" hidden></div>
+    <div class="actions" style="margin-bottom:8px"><button type="button" class="ghost tiny" id="bPin">🔑 Schimbă PIN-ul</button></div>
   </section>
 </form>
 </main>
@@ -228,16 +270,18 @@ function newForm(t){
   $('dprep').value=d;$('dliv').value=d;$('dliv').dataset.auto=1;
   $('oprep').value=L.oprep||'';$('oexp').value=L.oexp||'';$('oliv').value=L.oliv||'';$('temp').value='';
   $('delegat').value=S.delegat||DEF_DELEGAT;
-  items=[{}];tip=t;setTip(t);syncAddr();fillLists();renderHist();dirty=false;window.scrollTo({top:0});
+  items=[{}];tip=t;setTip(t);syncAddr();fillLists();renderHist();dirty=false;hideSaved();window.scrollTo({top:0});
 }
 $('bNew').onclick=()=>{newForm();toast('Livrare nouă')};
-function collect(){readItems();syncAddr();const v={id:curId||uid(),tip};FIELDS.forEach(k=>v[k]=$(k).value.trim());
+function collect(){readItems();syncAddr();const v={tip};FIELDS.forEach(k=>v[k]=$(k).value.trim());
+  const prev=curId&&S.history.find(h=>h.id===curId);
+  v.id=(prev&&prev.nr===v.nr&&prev.aviz===v.aviz&&prev.pvnr===v.pvnr&&prev.data===v.data)?curId:uid();
   v.items=items.filter(it=>it.den||it.por||it.gr||it.lot).map(it=>({den:it.den||'',por:it.por||'',gr:it.gr||'',lot:it.lot||''}));return v}
 function loadInto(v,asNew){
   FIELDS.forEach(k=>$(k).value=v[k]||'');if(!v.delegat)$('delegat').value=S.delegat||DEF_DELEGAT;
   $('same').checked=v.adresa===v.benef;delete $('dliv').dataset.auto;
   items=(v.items&&v.items.length?v.items:[{}]).map(x=>Object.assign({},x));tip=v.tip||'cald';
-  curId=asNew?null:v.id;
+  curId=asNew?null:v.id;hideSaved();
   if(asNew){const d=todayISO();$('data').value=d;$('dprep').value=d;$('dliv').value=d;$('dliv').dataset.auto=1;$('temp').value='';
     $('nr').value=S.nextNr;$('pvnr').value=S.nextPv;$('aviz').value=S.nextAviz;$('serie').value=S.serie||v.serie||'';
     items.forEach((it,i)=>{if(it.lot)it.lot=autoLot(i)})}
@@ -265,8 +309,11 @@ function record(v){
   [v.benef,v.adresa].forEach(s=>{if(s&&!S.schools.includes(s))S.schools.push(s)});
   S.lastBy[v.tip]={benef:v.benef,adresa:v.adresa,contract:v.contract,cdata:v.cdata,oprep:v.oprep,oexp:v.oexp,oliv:v.oliv,items:v.items};
   S.last=S.lastBy[v.tip];
-  curId=v.id;persist();fillLists();renderHist();dirty=false;
+  curId=v.id;persist();fillLists();renderHist();dirty=false;showSaved(v);
 }
+function showSaved(v){$('savedTxt').innerHTML=`✓ <b>Livrarea din ${esc(ro(v.data))}</b> (cert. ${esc(v.nr)}, aviz ${esc(v.aviz)}, PV ${esc(v.pvnr)}) e salvată în istoric. Poți descărca și celelalte documente pentru ea.`;$('saved').style.display='flex'}
+function hideSaved(){$('saved').style.display='none'}
+$('bNext').onclick=()=>{newForm();toast('Livrare nouă – numerele au crescut')};
 function validate(v){
   if(!v.items.length){toast('Adaugă cel puțin un produs');return false}
   if(!v.benef){toast('Completează beneficiarul');return false}
@@ -309,6 +356,29 @@ $('bAll').onclick=async()=>{const v=collect();if(!validate(v))return;
     const blob=await z.generateAsync({type:'blob'});
     if(await offer(`Documente_livrare_${(v.benef||'scoala').replace(/[^\wăâîșțĂÂÎȘȚ-]+/g,'_').slice(0,40)}_${day(v)}.zip`,blob)){record(v);toast('Gata – cele 3 documente au fost descărcate')}}
   catch(e){console.error(e);toast('Eroare la generarea documentelor')}};
+
+
+/* ---------- PIN lock ---------- */
+const hashPin=p=>{let h=2166136261;for(const c of 'lma-salt:'+p){h^=c.charCodeAt(0);h=Math.imul(h,16777619)>>>0}return h.toString(16)};
+const DEF_PIN=hashPin('0808');
+let entry='';
+function pinHash(){return S.pinHash||DEF_PIN}
+function drawDots(){document.querySelectorAll('#dots i').forEach((d,i)=>d.classList.toggle('f',i<entry.length))}
+function press(k){if(!document.body.classList.contains('locked'))return;
+  if(k==='back')entry=entry.slice(0,-1);else if(k==='clr')entry='';else if(entry.length<4)entry+=k;
+  drawDots();
+  if(entry.length===4){if(hashPin(entry)===pinHash()){setTimeout(()=>{document.body.classList.remove('locked');entry='';drawDots()},120)}
+    else{const d=$('dots');d.classList.add('err');setTimeout(()=>{d.classList.remove('err');entry='';drawDots()},380)}}}
+$('pad').addEventListener('click',e=>{const b=e.target.closest('button');if(b)press(b.dataset.c||b.textContent)});
+document.addEventListener('keydown',e=>{if(!document.body.classList.contains('locked'))return;
+  if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key==='Backspace')press('back');else if(e.key==='Escape')press('clr')});
+$('bLock').onclick=()=>{document.body.classList.add('locked');entry='';drawDots()};
+let hiddenAt=0;document.addEventListener('visibilitychange',()=>{if(document.hidden)hiddenAt=Date.now();else if(hiddenAt&&Date.now()-hiddenAt>5*60*1000)$('bLock').click()});
+$('bPin').onclick=()=>{$('pOld').value='';$('pNew').value='';$('pinModal').classList.add('on')};
+$('pCancel').onclick=()=>$('pinModal').classList.remove('on');
+$('pSave').onclick=()=>{if(hashPin($('pOld').value)!==pinHash()){toast('PIN-ul actual nu e corect');return}
+  const n=$('pNew').value;if(!/^\d{4}$/.test(n)){toast('PIN-ul nou trebuie să aibă 4 cifre');return}
+  S.pinHash=hashPin(n);persist();$('pinModal').classList.remove('on');toast('PIN-ul a fost schimbat')};
 
 /* ---------- start ---------- */
 lsLoad();newForm();
