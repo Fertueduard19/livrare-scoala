@@ -45,6 +45,7 @@ button:active{transform:scale(.97)}
 .ghost:hover{filter:brightness(1.15)}
 .tiny{padding:7px 11px;font-size:13px}
 .icon{padding:8px 11px;background:#161a18;border:1px solid var(--line);color:var(--ink)}
+.del{background:rgba(255,122,92,.1);color:var(--warn);border:1px solid rgba(255,122,92,.25);font-weight:600}.del.armed{background:var(--warn);color:#1a0b06}
 .x{background:none;color:var(--warn);font-size:13px;padding:4px 6px}
 .total{font-size:14px;margin:4px 0 12px;color:var(--mut)}.total b{color:var(--gold);font-size:16px}
 .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(11,12,12,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 12px calc(10px + env(safe-area-inset-bottom));z-index:3}
@@ -94,6 +95,10 @@ body.locked #lock{display:flex}
   <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
   <div class="pad" id="pad"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button class="fn" data-c="clr">✕</button><button>0</button><button class="fn" data-c="back">⌫</button></div>
 </div>
+<div class="modal" id="clrModal"><div class="box"><h3>Ștergi tot istoricul?</h3>
+  <p class="muted" style="margin:0 0 12px">Se șterg toate livrările salvate. Documentele Word deja descărcate rămân pe telefon/calculator.</p>
+  <label class="chk" style="margin-bottom:14px"><input type="checkbox" id="clrNums"> Pornește și numerele de la 1 (certificat, aviz, proces-verbal)</label>
+  <div class="actions"><button type="button" class="del" id="clrYes" style="padding:10px 14px">Da, șterge tot</button><button type="button" class="sec" id="clrNo" style="padding:10px 14px">Renunță</button></div></div></div>
 <div class="modal" id="pinModal"><div class="box"><h3>Schimbă codul PIN</h3>
   <div class="f"><label>PIN actual</label><input id="pOld" type="password" inputmode="numeric" maxlength="8"></div>
   <div class="f"><label>PIN nou (4 cifre)</label><input id="pNew" type="password" inputmode="numeric" maxlength="4"></div>
@@ -162,7 +167,7 @@ body.locked #lock{display:flex}
     <ul class="hist" id="hist"></ul>
     <p class="muted" id="store"></p>
     <div class="actions"><button type="button" class="ghost tiny" id="bExp">Salvează copie de siguranță</button><button type="button" class="ghost tiny" id="bImp">Încarcă copie</button><input type="file" id="fImp" accept=".json,application/json" hidden></div>
-    <div class="actions" style="margin-bottom:8px"><button type="button" class="ghost tiny" id="bPin">🔑 Schimbă PIN-ul</button></div>
+    <div class="actions" style="margin-bottom:8px"><button type="button" class="ghost tiny" id="bPin">🔑 Schimbă PIN-ul</button><button type="button" class="del tiny" id="bClear">🗑 Șterge tot istoricul</button></div>
   </section>
 </form>
 </main>
@@ -293,11 +298,15 @@ function fillLists(){$('dlSchools').innerHTML=S.schools.map(s=>`<option value="$
 function renderHist(){const h=S.history.slice(-40).reverse(),N=S.history.length;
   $('hist').innerHTML=h.length?h.map((v,j)=>`<li><div><b>${esc(ro(v.data))}</b><span class="pill ${v.tip==='sandv'?'s':''}">${v.tip==='sandv'?'sandvișuri':'mâncare caldă'}</span>
     <div class="m">${esc(v.benef||'—')} · Cert. ${esc(v.nr)} · Aviz ${esc(v.aviz)} · PV ${esc(v.pvnr)} · ${sumPor(v.items)} ${v.tip==='sandv'?'pachete':'porții'}</div></div>
-    <div class="actions"><button type="button" class="ghost tiny" data-open="${N-1-j}">Deschide</button><button type="button" class="ghost tiny" data-dup="${N-1-j}">Copie nouă</button></div></li>`).join('')
+    <div class="actions"><button type="button" class="ghost tiny" data-open="${N-1-j}">Deschide</button><button type="button" class="ghost tiny" data-dup="${N-1-j}">Copie nouă</button><button type="button" class="del tiny" data-delh="${N-1-j}">🗑</button></div></li>`).join('')
     :'<li class="muted">Nicio livrare încă. După primul document descărcat, livrarea apare aici.</li>'}
 $('hist').addEventListener('click',e=>{const d=e.target.dataset;
   if(d.open!==undefined){loadInto(S.history[+d.open],false);dirty=true;toast('Livrarea a fost încărcată')}
-  if(d.dup!==undefined){loadInto(S.history[+d.dup],true);dirty=true;toast('Copie nouă cu data de azi și numere noi')}});
+  if(d.dup!==undefined){loadInto(S.history[+d.dup],true);dirty=true;toast('Copie nouă cu data de azi și numere noi')}
+  if(d.delh!==undefined){const b=e.target;
+    if(!b.classList.contains('armed')){document.querySelectorAll('.del.armed').forEach(x=>{x.classList.remove('armed');x.textContent='🗑'});b.classList.add('armed');b.textContent='Sigur? Șterge';setTimeout(()=>{if(b.isConnected){b.classList.remove('armed');b.textContent='🗑'}},4000);return}
+    const h=S.history.splice(+d.delh,1)[0];if(h&&h.id===curId){curId=null;hideSaved()}
+    persist();renderHist();toast('Livrarea a fost ștearsă din istoric')}});
 
 function record(v){
   const idx=S.history.findIndex(h=>h.id===v.id);const entry=Object.assign({savedAt:new Date().toISOString()},v);
@@ -381,6 +390,10 @@ $('pSave').onclick=()=>{if(hashPin($('pOld').value)!==pinHash()){toast('PIN-ul a
   const n=$('pNew').value;if(!/^\d{4}$/.test(n)){toast('PIN-ul nou trebuie să aibă 4 cifre');return}
   S.pinHash=hashPin(n);persist();$('pinModal').classList.remove('on');toast('PIN-ul a fost schimbat')};
 
+$('bClear').onclick=()=>{$('clrNums').checked=false;$('clrModal').classList.add('on')};
+$('clrNo').onclick=()=>$('clrModal').classList.remove('on');
+$('clrYes').onclick=()=>{S.history=[];if($('clrNums').checked){S.nextNr=1;S.nextAviz=1;S.nextPv=1}
+  persist();$('clrModal').classList.remove('on');newForm();toast('Istoricul a fost șters')};
 /* ---------- start ---------- */
 lsLoad();newForm();
 $('store').textContent='Datele se salvează pe acest dispozitiv. Ca să le muți pe alt telefon sau pe PC, folosește copia de siguranță.';
